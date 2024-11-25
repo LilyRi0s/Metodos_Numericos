@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width,initial-scale=1.0">
+        <title>Newton-Raphson</title>
+        <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="barramenu">
+            <div class="contenido">
+                <h1 class="titulo">Metodos Numericos</h1>
+                <ul class="menu">
+                    <button class="opcion" onclick="window.location.href='index.html'">Inicio</button>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="paginap">
+            <h1>Newton-Raphson</h1>
+
+            <div id="NR" class="tabla" style="display:block">
+                <!--Ingresar los datos pedidos-->
+                <form id="nrdatos">
+
+                    <label for="nrfuncion">Funcion f(x):</label>
+                    <input type="text" id="nrfuncion" placeholder="Ejemplo : 3x^2 - 5x + 16">
+                    
+                    <label for="nrXi">Xi:</label>
+                    <input type="number" id="nrxi" placeholder="Ejemplo: 12">
+
+                    <label for="nrlimite">Limite:</label>
+                    <input type="number" id="nrlimite" placeholder="Ejemplo: 0.1%">
+                    
+                    <button type="button" onclick="solucionNR()">Calcular</button>
+
+                </form>
+                
+                <div class="res">
+                <table id="ResultadosNR">
+                    <thead>
+                        <tr>
+
+                            <th>Interacion</th>
+                            <th>Xi</th>
+                            <th>Error</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"></script>
+    </body>
+</html>

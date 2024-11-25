@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Errores</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="barramenu">
+            <div class="contenido">
+                <h1 class="titulo">Métodos Numéricos</h1>
+                <ul class="menu">
+                    <button class="opcion" onclick="window.location.href='index.html'">Inicio</button>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="paginap">
+            <h1>Calcular Errores</h1>
+
+            <div class="tablaerrores">
+                <form id="erroresForm">
+                    <label for="valorVerdadero">Valor Verdadero:</label>
+                    <input type="number" id="valorVerdadero" placeholder="Ejemplo: 1.8">
+
+                    <label for="valorAproximado">Valor Aproximado:</label>
+                    <input type="number" id="valorAproximado" placeholder="Ejemplo: 1.4">
+
+                    <button type="button" onclick="calcularErrores()">Calcular Errores</button>
+                </form>
+
+<div class="res">
+    <table id="tablaResultados">
+        <thead>
+            <tr>
+                <th>Tipo de Error</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Error Absoluto</td>
+                <td id="errorAbsoluto">0</td> 
+            </tr>
+            <tr>
+                <td>Error Relativo</td>
+                <td id="errorRelativo">0</td> 
+            </tr>
+            <tr>
+                <td>Error Relativo Porcentual</td>
+                <td id="errorRelativoPorcentual">0</td> 
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+            </div>
+        </div>
+
+        <script src="app.js"></script>
+    </body>
+</html>

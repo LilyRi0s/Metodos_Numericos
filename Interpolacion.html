@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpolación Numérica</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="barramenu">
+        <div class="contenido">
+            <h1 class="titulo">Métodos Numéricos</h1>
+            <ul class="menu">
+                <button class="opcion" onclick="window.location.href='index.html'">Inicio</button>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="paginap">
+        <h1>Interpolación Numérica</h1>
+
+        <form id="form-intervalos">
+            <label for="intervalos">¿Cuántos intervalos quieres agregar?</label>
+            <input type="number" id="intervalos" placeholder="Número de intervalos" min="1">
+            <button type="button" onclick="generarTabla()">Generar Tabla</button>
+        </form>
+
+        <div id="tabla-container"></div>
+
+        <form id="form-x-para-calcular" style="display:none;">
+            <label for="x-valor">Ingresa un valor de x para obtener y:</label>
+            <input type="number" id="x-valor" placeholder="Valor de x" required>
+            <button type="button" onclick="calcularValorY()">Calcular Valor de Y</button>
+        </form>
+
+        <div id="resultado-y" style="display:none;">
+            <p>El valor de Y es: <span id="valorY"></span></p>
+        </div>
+
+       
+
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"></script>
+
+</body>
+</html>
