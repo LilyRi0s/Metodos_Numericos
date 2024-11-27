@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de la Secante</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="barramenu">
+        <div class="contenido">
+            <h1 class="titulo">Métodos Numéricos</h1>
+            <ul class="menu">
+                <button class="opcion" onclick="window.location.href='index.html'">Inicio</button>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="paginap">
+        <h1>Secante</h1>
+
+        <div class="tablasec">
+            <form id="secanteform">
+                <label for="funcion">Función f(x):</label>
+                <input type="text" id="funcion" placeholder="Ejemplo: 3x-23+56">
+
+                <label for="error">Error :</label>
+                <input type="number" id="tol" placeholder="Ejemplo: menor a 0.5 ">
+
+                <label for="x0">Xi-1 :</label>
+                <input type="number" id="x0" placeholder="Ejemplo: xi-1 = 1 ">
+
+                <label for="x1">Xi :</label>
+                <input type="number" id="x1" placeholder="Ejemplo: xi = 2 ">
+
+                <button type="button" onclick="calcularSecante()">Calcular</button>
+            </form>
+
+            <div class="res">
+                <table id="tablaResultadossec">
+                    <thead>
+                        <tr>
+                            <th>Inter</th>
+                            <th>Xi-1</th>
+                            <th>Xi</th>
+                            <th>Xi+1</th>
+                            <th>f(xi-1)</th>
+                            <th>f(xi)</th>
+                            <th>f(xi+1)</th>
+                            <th>Error</th>
+                        </tr>
+                    </thead>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -82,8 +82,8 @@ function solucionNRM() {
     let xPrevio;
     let i = 0;
     let error = Infinity;
-    const maxIteraciones = 10; // Número máximo de iteraciones
-    const maxXValue = 1e6; // Máximo valor permitido para x
+    const maxIteraciones = 10; 
+    const maxXValue = 1e6; 
 
     while (error > limite && i < maxIteraciones) {
         const fx = evaluateExpression(funcion, x);
@@ -92,7 +92,6 @@ function solucionNRM() {
 
         
 
-        // Calcular el error solo después de la primera iteración
         if (i > 0) {
             error = Math.abs((x - xPrevio) / x) * 100;
         } else {
@@ -109,21 +108,17 @@ function solucionNRM() {
         `;
 
 
-        // Verificar si la derivada es muy pequeña o si x es demasiado grande
         if (Math.abs(dx) < 1e-6 || Math.abs(x) > maxXValue) {
             alert("El valor de x es demasiado grande o la derivada es cercana a cero. No se puede continuar.");
             break;
         }
 
-        // Guardar el valor anterior de x
         xPrevio = x;
 
-        // Calcular nuevo valor de x usando la fórmula modificada
         x = x - ((fx * dx) / (Math.pow(dx, 2) - fx * ddx));
         i++;
     }
 
-    // Verificar si se alcanzó el número máximo de iteraciones
     if (i === maxIteraciones) {
         alert("Se alcanzó el número máximo de iteraciones. Puede que el límite sea demasiado bajo o la función no converja.");
     }
@@ -138,26 +133,20 @@ function solucionNRM() {
 
 
 function calcularErrores() {
-    // Obtener los valores ingresados
     const valorVerdadero = parseFloat(document.getElementById('valorVerdadero').value);
     const valorAproximado = parseFloat(document.getElementById('valorAproximado').value);
 
-    // Verificar si los valores son números válidos
     if (isNaN(valorVerdadero) || isNaN(valorAproximado)) {
         alert('Por favor ingresa valores válidos para el valor verdadero y el valor aproximado.');
         return;
     }
 
-    // Calcular el error absoluto
     const errorAbsoluto = Math.abs(valorVerdadero - valorAproximado);
 
-    // Calcular el error relativo
     const errorRelativo = errorAbsoluto / Math.abs(valorVerdadero);
 
-    // Calcular el error relativo porcentual
     const errorRelativoPorcentual = errorRelativo * 100;
 
-    // Valores de la tabla
     document.getElementById('errorAbsoluto').textContent = errorAbsoluto.toFixed(4);
     document.getElementById('errorRelativo').textContent = errorRelativo.toFixed(4);
     document.getElementById('errorRelativoPorcentual').textContent = errorRelativoPorcentual.toFixed(2) + '%';
@@ -177,7 +166,6 @@ function calcularMc() {
     const valorX = parseFloat(document.getElementById('valorX').value);
     const numeroIteraciones = parseInt(document.getElementById('numeroIteraciones').value);
     
-    // Calcular el valor verdadero e elevado a x
     const valorVerdadero = Math.exp(valorX);
     
 
@@ -186,7 +174,6 @@ function calcularMc() {
     let errorAbsoluto, errorRelativo;
     let valorAproxAnterior = 1; 
     
-    // Iteración de cálculo de errores
     for (let i = 0; i < numeroIteraciones; i++) {
         if (i > 0) {
             valorAprox += Math.pow(valorX, i) / factorial(i);
@@ -213,7 +200,6 @@ function calcularMc() {
         valorAproxAnterior = valorAprox;
     }
 
-    // Resultados en la tabla
     document.getElementById('resultados').innerHTML = resultadosHTML;
 }
 
@@ -377,10 +363,134 @@ function calcularBiseccion(){
 
 
 
+
+
+function calcularSecante() {
+    try {
+        const tablaResultadossec = document.getElementById("tablaResultadossec");
+        tablaResultadossec.querySelector("tbody")?.remove(); 
+        const tbody = document.createElement("tbody"); 
+
+        const funcionStr = document.getElementById("funcion").value; 
+        const errorDeseado = parseFloat(document.getElementById("tol").value); 
+        let ximen1 = parseFloat(document.getElementById("x0").value); 
+        let xi = parseFloat(document.getElementById("x1").value); 
+
+        const f = math.parse(funcionStr).compile();
+
+        let errorActual = 100; 
+        let iteracion = 0;
+
+        while (errorActual > errorDeseado) {
+            iteracion++;
+
+            const fximen1 = f.evaluate({ x: ximen1 });
+            const fxi = f.evaluate({ x: xi });
+
+            const ximas1 = xi - (fxi * (xi - ximen1)) / (fxi - fximen1);
+
+            errorActual = Math.abs((ximas1 - xi) / ximas1) * 100;
+
+            const fximas1 = f.evaluate({ x: ximas1 });
+
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${iteracion}</td>
+                <td>${ximen1.toFixed(5)}</td>
+                <td>${xi.toFixed(5)}</td>
+                <td>${ximas1.toFixed(5)}</td>
+                <td>${fximen1.toFixed(5)}</td>
+                <td>${fxi.toFixed(5)}</td>
+                <td>${fximas1.toFixed(5)}</td>
+                <td>${errorActual.toFixed(5)}</td>
+            `;
+            tbody.appendChild(fila);
+
+            ximen1 = xi;
+            xi = ximas1;
+        }
+
+        tablaResultadossec.appendChild(tbody);
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            alert("Error de sintaxis en la función ingresada. Verifica que esté correctamente escrita.");
+        } else if (error.message.includes("division by zero")) {
+            alert("División por cero en la evaluación. Ajusta los valores iniciales.");
+        } else {
+            alert(`Error inesperado: ${error.message}`);
+        }
+    }
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
 function calcularErroresTaylor() {
-  
+    try {
+        const tablaResultados = document.getElementById("tablaResultados");
+        tablaResultados.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Iteración</th>
+                    <th>Valor Aproximado</th>
+                    <th>Error Truncado</th>
+                </tr>
+            </thead>
+        `;
 
+        const funcion = document.getElementById("funcion").value.trim(); 
+        const xi = parseFloat(document.getElementById("xi").value); 
+        const xi1 = parseFloat(document.getElementById("xi1").value); 
+        const h = parseFloat(document.getElementById("h").value); 
+        const numTerminos = parseInt(document.getElementById("numTerminos").value); 
 
+        if (isNaN(xi) || isNaN(xi1) || isNaN(h) || isNaN(numTerminos) || funcion === "") {
+            alert("Por favor, ingresa valores válidos.");
+            return;
+        }
 
+        const math = window.math;
+        const expr = math.parse(funcion);
 
-   }
+        const valorVerdadero = expr.evaluate({ x: xi1 });
+
+        let resultadoActual = 0; 
+
+        for (let n = 0; n < numTerminos; n++) {
+            const derivada = math.derivative(expr, "x", { simplify: true });
+            let derivadaN = expr;
+            for (let i = 0; i < n; i++) {
+                derivadaN = math.derivative(derivadaN, "x");
+            }
+
+            const derivadaEnXi = derivadaN.evaluate({ x: xi });
+
+            const termino = (derivadaEnXi / factorial(n)) * Math.pow(h, n);
+
+            resultadoActual += termino;
+
+            const errorTruncado = valorVerdadero - resultadoActual;
+
+            const nuevaFila = `
+                <tr>
+                    <td>${n}</td>
+                    <td>${resultadoActual.toFixed(6)}</td>
+                    <td>${errorTruncado.toFixed(6)}</td>
+                </tr>
+            `;
+            tablaResultados.innerHTML += nuevaFila;
+        }
+    } catch (error) {
+        alert("Error: Verifica la sintaxis de la función o los valores ingresados.");
+        console.error(error);
+    }
+}
+
